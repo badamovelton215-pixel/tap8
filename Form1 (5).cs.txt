@@ -1,0 +1,58 @@
+﻿namespace Gul
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            dataGridView1.Columns.Add("GulAdi", "Gül növü (gül adı)");
+            dataGridView1.Columns.Add("SatisSayi", "Satış sayı");
+            dataGridView1.Columns.Add("Qiymeti", "Qiyməti");
+            dataGridView1.Columns.Add("YekunQiymeti", "Yekun qiyməti");
+        }
+        int umumi = 0;
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            string GnovS = textBox1.Text;
+            string sayS = maskedTextBox1.Text;
+            string qiymetS = maskedTextBox2.Text;
+
+            if (string.IsNullOrEmpty(GnovS) || string.IsNullOrEmpty(sayS)
+                || string.IsNullOrEmpty(qiymetS))
+            {
+                MessageBox.Show("uyqun saheler bosdur");
+            }
+            else
+            {
+                int qiymet = int.Parse(qiymetS);
+                int say = int.Parse(sayS);
+                if (qiymet <= 0 || say <= 0)
+                {
+                    MessageBox.Show("qiymet ve ya say 0 vv 0dan kicik olabilmez");
+                }
+                else
+                {
+                    int result = qiymet * say;
+                    dataGridView1.Rows.Add(GnovS, sayS, qiymetS, result.ToString("F2"));
+                    textBox1.Clear();
+                    maskedTextBox1.Clear();
+                    maskedTextBox2.Clear();
+                    umumi = umumi + result;
+                    label5.Text = umumi.ToString("F2");
+                }
+            }
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
+            DialogResult dialogResult = MessageBox.Show("Sistemden cixmaq isdeyirsiz","tesdiq",MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
+    }
+}
